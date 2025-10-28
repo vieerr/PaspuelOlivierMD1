@@ -31,6 +31,7 @@ class AbundantNumberModel {
         divisors.add(i);
       }
     }
+    divisors.add(1);
 
     // Calcular suma de divisores
     int sum = divisors.reduce((a, b) => a + b);
@@ -60,7 +61,7 @@ class AbundantNumberModel {
       return 'El número $number NO ES ABUNDANTE\n'
           'Sus divisores propios son: ${getDivisorsString()}\n'
           'La suma de sus divisores es: $sumOfDivisors\n'
-          '$sumOfDivisors ≤ $number';
+          '$sumOfDivisors < $number';
     }
   }
 }
