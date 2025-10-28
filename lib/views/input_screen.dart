@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../controllers/abundant_number_controller.dart';
 import '../widgets/molecules/number_input_form.dart';
-import 'result_screen.dart';
 
 /// Vista: Pantalla de ingreso de número
 class InputScreen extends StatefulWidget {
@@ -33,14 +32,11 @@ class _InputScreenState extends State<InputScreen> {
 
     setState(() {});
 
-    // Si hay resultado, navegar a la pantalla de resultado
     if (_abundantController.result != null) {
-      Navigator.push(
+      Navigator.pushNamed(
         context,
-        MaterialPageRoute(
-          builder: (context) =>
-              ResultScreen(result: _abundantController.result!),
-        ),
+        '/result',
+        arguments: _abundantController.result,
       );
     }
   }

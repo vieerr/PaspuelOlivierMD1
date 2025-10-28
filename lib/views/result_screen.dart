@@ -5,12 +5,17 @@ import '../widgets/molecules/result_card.dart';
 import '../widgets/atoms/custom_button.dart';
 
 class ResultScreen extends StatelessWidget {
-  final AbundantNumberModel result;
+  final AbundantNumberModel? result;
 
-  const ResultScreen({super.key, required this.result});
+  const ResultScreen({super.key, this.result});
 
   @override
   Widget build(BuildContext context) {
+    // Get result from arguments if not passed directly
+    final screenResult =
+        result ??
+        ModalRoute.of(context)!.settings.arguments as AbundantNumberModel;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Resultado'),
@@ -25,9 +30,11 @@ class ResultScreen extends StatelessWidget {
             const SizedBox(height: 20),
             // Tarjeta de resultado principal
             ResultCard(
-              title: result.isAbundant ? '¡Es Abundante!' : 'No es Abundante',
-              content: result.getResultMessage(),
-              isAbundant: result.isAbundant,
+              title: screenResult.isAbundant
+                  ? '¡Es Abundante!'
+                  : 'No es Abundante',
+              content: screenResult.getResultMessage(),
+              isAbundant: screenResult.isAbundant,
             ),
             const SizedBox(height: 20),
             // Detalles adicionales
@@ -48,23 +55,24 @@ class ResultScreen extends StatelessWidget {
                     const Divider(height: 20),
                     DetailRow(
                       label: 'Número analizado:',
-                      value: result.number.toString(),
+                      value: screenResult.number.toString(),
                     ),
                     DetailRow(
                       label: 'Cantidad de divisores:',
-                      value: result.properDivisors.length.toString(),
+                      value: screenResult.properDivisors.length.toString(),
                     ),
                     DetailRow(
                       label: 'Divisores propios:',
-                      value: result.getDivisorsString(),
+                      value: screenResult.getDivisorsString(),
                     ),
                     DetailRow(
                       label: 'Suma de divisores:',
-                      value: result.sumOfDivisors.toString(),
+                      value: screenResult.sumOfDivisors.toString(),
                     ),
                     DetailRow(
                       label: 'Diferencia:',
-                      value: '${result.sumOfDivisors - result.number}',
+                      value:
+                          '${screenResult.sumOfDivisors - screenResult.number}',
                     ),
                   ],
                 ),
